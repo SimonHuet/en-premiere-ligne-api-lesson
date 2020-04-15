@@ -1,0 +1,6 @@
+{
+  "name": "api_user",
+  "connector": "rest",
+  "baseURL": "localhost:300",
+  "crud": true
+}
