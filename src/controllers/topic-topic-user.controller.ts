@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Topic,
-  TopicUser,
-} from '../models';
+import {Topic, TopicUser} from '../models';
 import {TopicRepository} from '../repositories';
 
 export class TopicTopicUserController {
   constructor(
     @repository(TopicRepository) protected topicRepository: TopicRepository,
-  ) { }
+  ) {}
 
   @get('/topics/{id}/topic-users', {
     responses: {
@@ -54,18 +51,19 @@ export class TopicTopicUserController {
     },
   })
   async create(
-    @param.path.string('id') id: typeof Topic.prototype.UUID,
+    @param.path.string('id') id: typeof Topic.prototype.id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(TopicUser, {
             title: 'NewTopicUserInTopic',
             exclude: ['id'],
-            optional: ['topicUUID']
+            optional: ['topicUUID'],
           }),
         },
       },
-    }) topicUser: Omit<TopicUser, 'id'>,
+    })
+    topicUser: Omit<TopicUser, 'id'>,
   ): Promise<TopicUser> {
     return this.topicRepository.topicUsers(id).create(topicUser);
   }
@@ -88,7 +86,8 @@ export class TopicTopicUserController {
       },
     })
     topicUser: Partial<TopicUser>,
-    @param.query.object('where', getWhereSchemaFor(TopicUser)) where?: Where<TopicUser>,
+    @param.query.object('where', getWhereSchemaFor(TopicUser))
+    where?: Where<TopicUser>,
   ): Promise<Count> {
     return this.topicRepository.topicUsers(id).patch(topicUser, where);
   }
@@ -103,7 +102,8 @@ export class TopicTopicUserController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(TopicUser)) where?: Where<TopicUser>,
+    @param.query.object('where', getWhereSchemaFor(TopicUser))
+    where?: Where<TopicUser>,
   ): Promise<Count> {
     return this.topicRepository.topicUsers(id).delete(where);
   }

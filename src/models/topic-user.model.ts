@@ -1,7 +1,7 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {Topic} from './topic.model';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class TopicUser extends Entity {
   @property({
     type: 'number',

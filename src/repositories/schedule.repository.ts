@@ -5,7 +5,7 @@ import {Schedule, ScheduleRelations} from '../models';
 
 export class ScheduleRepository extends DefaultCrudRepository<
   Schedule,
-  typeof Schedule.prototype.UUID,
+  typeof Schedule.prototype.id,
   ScheduleRelations
 > {
   constructor(@inject('datasources.AuchanDB') dataSource: AuchanDbDataSource) {

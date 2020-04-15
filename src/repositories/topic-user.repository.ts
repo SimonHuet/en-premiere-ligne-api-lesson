@@ -1,7 +1,11 @@
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
-import {TopicUser, TopicUserRelations, Topic} from '../models';
+import {Getter, inject} from '@loopback/core';
+import {
+  BelongsToAccessor,
+  DefaultCrudRepository,
+  repository,
+} from '@loopback/repository';
 import {AuchanDbDataSource} from '../datasources';
-import {inject, Getter} from '@loopback/core';
+import {Topic, TopicUser, TopicUserRelations} from '../models';
 import {TopicRepository} from './topic.repository';
 
 export class TopicUserRepository extends DefaultCrudRepository<
@@ -9,14 +13,21 @@ export class TopicUserRepository extends DefaultCrudRepository<
   typeof TopicUser.prototype.id,
   TopicUserRelations
 > {
-
-  public readonly Topic: BelongsToAccessor<Topic, typeof TopicUser.prototype.id>;
+  public readonly topic: BelongsToAccessor<
+    Topic,
+    typeof TopicUser.prototype.id
+  >;
 
   constructor(
-    @inject('datasources.AuchanDB') dataSource: AuchanDbDataSource, @repository.getter('TopicRepository') protected topicRepositoryGetter: Getter<TopicRepository>,
+    @inject('datasources.AuchanDB') dataSource: AuchanDbDataSource,
+    @repository.getter('TopicRepository')
+    protected topicRepositoryGetter: Getter<TopicRepository>,
   ) {
     super(TopicUser, dataSource);
-    this.Topic = this.createBelongsToAccessorFor('Topic', topicRepositoryGetter,);
-    this.registerInclusionResolver('Topic', this.Topic.inclusionResolver);
+    this.topic = this.createBelongsToAccessorFor(
+      'Topic',
+      topicRepositoryGetter,
+    );
+    this.registerInclusionResolver('Topic', this.topic.inclusionResolver);
   }
 }

@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  Session,
-  Group,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Group, Session} from '../models';
 import {SessionRepository} from '../repositories';
 
 export class SessionGroupController {
   constructor(
     @repository(SessionRepository)
     public sessionRepository: SessionRepository,
-  ) { }
+  ) {}
 
   @get('/sessions/{id}/group', {
     responses: {
@@ -31,7 +22,7 @@ export class SessionGroupController {
     },
   })
   async getGroup(
-    @param.path.string('id') id: typeof Session.prototype.UUID,
+    @param.path.string('id') id: typeof Session.prototype.id,
   ): Promise<Group> {
     return this.sessionRepository.group(id);
   }

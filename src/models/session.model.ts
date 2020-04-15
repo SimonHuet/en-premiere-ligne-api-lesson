@@ -1,16 +1,16 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
+import {Group} from './group.model';
 import {Schedule} from './schedule.model';
 import {Topic} from './topic.model';
-import {Group} from './group.model';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class Session extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
-  UUID?: string;
+  id?: string;
 
   @property({
     type: 'string',

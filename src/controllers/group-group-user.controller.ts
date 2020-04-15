@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Group,
-  GroupUser,
-} from '../models';
+import {Group, GroupUser} from '../models';
 import {GroupRepository} from '../repositories';
 
 export class GroupGroupUserController {
   constructor(
     @repository(GroupRepository) protected groupRepository: GroupRepository,
-  ) { }
+  ) {}
 
   @get('/groups/{id}/group-users', {
     responses: {
@@ -54,18 +51,19 @@ export class GroupGroupUserController {
     },
   })
   async create(
-    @param.path.string('id') id: typeof Group.prototype.UUID,
+    @param.path.string('id') id: typeof Group.prototype.id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(GroupUser, {
             title: 'NewGroupUserInGroup',
             exclude: ['id'],
-            optional: ['groupUUID']
+            optional: ['groupUUID'],
           }),
         },
       },
-    }) groupUser: Omit<GroupUser, 'id'>,
+    })
+    groupUser: Omit<GroupUser, 'id'>,
   ): Promise<GroupUser> {
     return this.groupRepository.groupUsers(id).create(groupUser);
   }
@@ -88,7 +86,8 @@ export class GroupGroupUserController {
       },
     })
     groupUser: Partial<GroupUser>,
-    @param.query.object('where', getWhereSchemaFor(GroupUser)) where?: Where<GroupUser>,
+    @param.query.object('where', getWhereSchemaFor(GroupUser))
+    where?: Where<GroupUser>,
   ): Promise<Count> {
     return this.groupRepository.groupUsers(id).patch(groupUser, where);
   }
@@ -103,7 +102,8 @@ export class GroupGroupUserController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(GroupUser)) where?: Where<GroupUser>,
+    @param.query.object('where', getWhereSchemaFor(GroupUser))
+    where?: Where<GroupUser>,
   ): Promise<Count> {
     return this.groupRepository.groupUsers(id).delete(where);
   }

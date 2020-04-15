@@ -1,15 +1,15 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {GroupUser} from './group-user.model';
 import {Session} from './session.model';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class Group extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
-  UUID?: string;
+  id?: string;
 
   @property({
     type: 'string',

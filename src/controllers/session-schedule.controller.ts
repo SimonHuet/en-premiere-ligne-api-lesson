@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  Session,
-  Schedule,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Schedule, Session} from '../models';
 import {SessionRepository} from '../repositories';
 
 export class SessionScheduleController {
   constructor(
     @repository(SessionRepository)
     public sessionRepository: SessionRepository,
-  ) { }
+  ) {}
 
   @get('/sessions/{id}/schedule', {
     responses: {
@@ -31,7 +22,7 @@ export class SessionScheduleController {
     },
   })
   async getSchedule(
-    @param.path.string('id') id: typeof Session.prototype.UUID,
+    @param.path.string('id') id: typeof Session.prototype.id,
   ): Promise<Schedule> {
     return this.sessionRepository.schedule(id);
   }

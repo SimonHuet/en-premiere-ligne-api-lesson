@@ -1,13 +1,13 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class Schedule extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: true,
   })
-  UUID?: string;
+  id?: string;
 
   @property({
     type: 'date',

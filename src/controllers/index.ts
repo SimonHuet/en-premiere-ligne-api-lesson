@@ -7,3 +7,7 @@ export * from './topic-user-topic.controller';
 export * from './group-group-user.controller';
 export * from './topic-topic-user.controller';
 export * from './group-session.controller';
+export * from './session.controller';
+export * from './topic.controller';
+export * from './group.controller';
+export * from './schedule.controller';
