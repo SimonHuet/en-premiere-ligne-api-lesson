@@ -10,13 +10,13 @@ export class GroupUserRepository extends DefaultCrudRepository<
   GroupUserRelations
 > {
 
-  public readonly groupUser: BelongsToAccessor<Group, typeof GroupUser.prototype.id>;
+  public readonly group: BelongsToAccessor<Group, typeof GroupUser.prototype.id>;
 
   constructor(
     @inject('datasources.AuchanDB') dataSource: AuchanDbDataSource, @repository.getter('GroupRepository') protected groupRepositoryGetter: Getter<GroupRepository>,
   ) {
     super(GroupUser, dataSource);
-    this.groupUser = this.createBelongsToAccessorFor('groupUser', groupRepositoryGetter,);
-    this.registerInclusionResolver('groupUser', this.groupUser.inclusionResolver);
+    this.group = this.createBelongsToAccessorFor('group', groupRepositoryGetter,);
+    this.registerInclusionResolver('group', this.group.inclusionResolver);
   }
 }

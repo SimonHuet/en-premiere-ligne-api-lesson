@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {TopicUser} from './topic-user.model';
 
 @model({settings: {strict: false}})
 export class Topic extends Entity {
@@ -15,6 +16,8 @@ export class Topic extends Entity {
   })
   name: string;
 
+  @hasMany(() => TopicUser, {keyTo: 'topicUUID'})
+  topicUsers: TopicUser[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

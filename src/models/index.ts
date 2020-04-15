@@ -3,3 +3,4 @@ export * from './schedule.model';
 export * from './session.model';
 export * from './topic.model';
 export * from './group-user.model';
+export * from './topic-user.model';

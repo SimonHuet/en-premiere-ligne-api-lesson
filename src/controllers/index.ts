@@ -3,3 +3,7 @@ export * from './session-schedule.controller';
 export * from './session-topic.controller';
 export * from './session-group.controller';
 export * from './group-user-group.controller';
+export * from './topic-user-topic.controller';
+export * from './group-group-user.controller';
+export * from './topic-topic-user.controller';
+export * from './group-session.controller';

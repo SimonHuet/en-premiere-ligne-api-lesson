@@ -1,8 +1,8 @@
 import {Entity, model, property, belongsTo} from '@loopback/repository';
-import {Group} from './group.model';
+import {Topic} from './topic.model';
 
 @model({settings: {strict: false}})
-export class GroupUser extends Entity {
+export class TopicUser extends Entity {
   @property({
     type: 'number',
     id: true,
@@ -16,21 +16,21 @@ export class GroupUser extends Entity {
   })
   userUUID: string;
 
-  @belongsTo(() => Group, {name: 'group'})
-  groupUUID: string;
+  @belongsTo(() => Topic, {name: 'Topic'})
+  topicUUID: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<GroupUser>) {
+  constructor(data?: Partial<TopicUser>) {
     super(data);
   }
 }
 
-export interface GroupUserRelations {
+export interface TopicUserRelations {
   // describe navigational properties here
 }
 
-export type GroupUserWithRelations = GroupUser & GroupUserRelations;
+export type TopicUserWithRelations = TopicUser & TopicUserRelations;

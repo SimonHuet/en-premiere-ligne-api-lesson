@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {GroupUser} from './group-user.model';
+import {Session} from './session.model';
 
 @model({settings: {strict: false}})
 export class Group extends Entity {
@@ -15,6 +17,11 @@ export class Group extends Entity {
   })
   name: string;
 
+  @hasMany(() => GroupUser, {keyTo: 'groupUUID'})
+  groupUsers: GroupUser[];
+
+  @hasMany(() => Session, {keyTo: 'groupUUID'})
+  sessions: Session[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
