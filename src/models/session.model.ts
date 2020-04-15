@@ -1,5 +1,7 @@
-import {Entity, model, property, hasOne} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {Schedule} from './schedule.model';
+import {Topic} from './topic.model';
+import {Group} from './group.model';
 
 @model({settings: {strict: false}})
 export class Session extends Entity {
@@ -16,8 +18,14 @@ export class Session extends Entity {
   })
   name: string;
 
-  @hasOne(() => Schedule, {keyTo: 'sessionUUID'})
-  schedule: Schedule;
+  @belongsTo(() => Schedule, {name: 'schedule'})
+  scheduleUUID: string;
+
+  @belongsTo(() => Topic, {name: 'topic'})
+  topicUUID: string;
+
+  @belongsTo(() => Group, {name: 'group'})
+  groupUUID: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
