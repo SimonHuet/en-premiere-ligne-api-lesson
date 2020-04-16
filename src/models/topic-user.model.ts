@@ -4,11 +4,11 @@ import {Topic} from './topic.model';
 @model({settings: {strict: true}})
 export class TopicUser extends Entity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
     generated: true,
   })
-  id?: number;
+  id?: string;
 
   @property({
     type: 'string',
