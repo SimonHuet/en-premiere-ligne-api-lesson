@@ -6,6 +6,8 @@ export interface User {
   // this is where you define the Node.js methods that will be
   // mapped to REST/SOAP/gRPC operations as stated in the datasource
   // json file.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getUserGroups(userId: string): Promise<any[]>;
 }
 
 export class UserProvider implements Provider<User> {

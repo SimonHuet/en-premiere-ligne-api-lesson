@@ -18,11 +18,13 @@ import {
 } from '@loopback/rest';
 import {Group} from '../models';
 import {GroupRepository} from '../repositories';
+import {UserProvider} from '../services';
 
 export class GroupController {
   constructor(
     @repository(GroupRepository)
     public groupRepository: GroupRepository,
+    public userProvider: UserProvider = new UserProvider(),
   ) {}
 
   @post('/groups', {
@@ -166,5 +168,20 @@ export class GroupController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.groupRepository.deleteById(id);
+  }
+
+  @get('/users/{id}/groups', {
+    responses: {
+      '200': {
+        description: "Group's users model instance",
+      },
+    },
+  })
+  async getUserGroups(@param.path.string('id') id: string): Promise<object> {
+    const groups = (
+      await (await this.userProvider.value()).getUserGroups(id)
+    ).map(userGroup => userGroup.group);
+
+    return groups;
   }
 }

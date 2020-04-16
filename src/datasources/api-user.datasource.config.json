@@ -1,6 +1,20 @@
 {
   "name": "api_user",
   "connector": "rest",
-  "baseURL": "localhost:300",
-  "crud": true
+  "debug": "true",
+  "options": {
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json"
+    }
+  },
+  "operations": [{
+    "template": {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/group-users?filter[include][][relation]=group&filter[where][userUUID]={userId}"
+    },
+    "functions": {
+      "getUserGroups": ["userId"]
+    }
+  }]
 }
