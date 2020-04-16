@@ -11,3 +11,5 @@ export * from './session.controller';
 export * from './topic.controller';
 export * from './group.controller';
 export * from './schedule.controller';
+export * from './topic-user.controller';
+export * from './group-user.controller';
