@@ -8,6 +8,9 @@ export interface User {
   // json file.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getUserGroups(userId: string): Promise<any[]>;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getUsers(query: string): Promise<any[]>;
 }
 
 export class UserProvider implements Provider<User> {

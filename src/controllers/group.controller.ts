@@ -17,13 +17,15 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {Group} from '../models';
-import {GroupRepository} from '../repositories';
+import {GroupRepository, GroupUserRepository} from '../repositories';
 import {UserProvider} from '../services';
 
 export class GroupController {
   constructor(
     @repository(GroupRepository)
     public groupRepository: GroupRepository,
+    @repository(GroupUserRepository)
+    public groupUserRepository: GroupUserRepository,
     public userProvider: UserProvider = new UserProvider(),
   ) {}
 
@@ -183,5 +185,36 @@ export class GroupController {
     ).map(userGroup => userGroup.group);
 
     return groups;
+  }
+
+  @get('/groups/{id}/users', {
+    responses: {
+      '200': {
+        description: "Users's groups model instance",
+      },
+    },
+  })
+  async getGroupUsers(@param.path.string('id') id: string): Promise<object> {
+    const groupUsersUUID = (
+      await this.groupUserRepository.find({
+        where: {
+          groupUUID: id,
+        },
+      })
+    ).map(groupUser => ({
+      id: groupUser.userUUID,
+    }));
+
+    const query = {
+      where: {
+        or: groupUsersUUID,
+      },
+    };
+
+    const groupUsers = await (await this.userProvider.value()).getUsers(
+      JSON.stringify(query),
+    );
+
+    return groupUsers;
   }
 }
