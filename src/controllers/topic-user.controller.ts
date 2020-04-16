@@ -119,7 +119,7 @@ export class TopicUserController {
     },
   })
   async findById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @param.filter(TopicUser, {exclude: 'where'}) filter?: FilterExcludingWhere<TopicUser>
   ): Promise<TopicUser> {
     return this.topicUserRepository.findById(id, filter);
@@ -133,7 +133,7 @@ export class TopicUserController {
     },
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -154,7 +154,7 @@ export class TopicUserController {
     },
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody() topicUser: TopicUser,
   ): Promise<void> {
     await this.topicUserRepository.replaceById(id, topicUser);
@@ -167,7 +167,7 @@ export class TopicUserController {
       },
     },
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.topicUserRepository.deleteById(id);
   }
 }
