@@ -20,6 +20,9 @@ const config = {
     {
       template: {
         method: 'GET',
+        headers: {
+          customAllow: 'true',
+        },
         url:
           process.env.API_USER_URL +
           '/group-users?filter[include][][relation]=group&filter[where][userUUID]={userId}',
@@ -31,6 +34,9 @@ const config = {
     {
       template: {
         method: 'GET',
+        headers: {
+          customAllow: 'true',
+        },
         url: process.env.API_USER_URL + '/users?filter={query}',
       },
       functions: {
