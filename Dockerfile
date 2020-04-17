@@ -22,7 +22,15 @@ COPY --chown=node . .
 RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=0.0.0.0 PORT=3000
+ENV PORT=${PORT}
+ENV HOST=${HOST}
+ENV DB_HOST=${DB_HOST}
+ENV DB_PORT=${DB_PORT}
+ENV DB_USER=${DB_USER}
+ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_NAME=${DB_NAME}
+ENV LOCALSTORAGE=${LOCALSTORAGE}
+ENV CONNECTOR=${CONNECTOR}
 
 EXPOSE ${PORT}
 CMD [ "node", "." ]

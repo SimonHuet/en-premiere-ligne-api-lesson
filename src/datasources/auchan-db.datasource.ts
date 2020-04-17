@@ -5,7 +5,18 @@ import {
   ValueOrPromise,
 } from '@loopback/core';
 import {juggler} from '@loopback/repository';
-import config from './auchan-db.datasource.config.json';
+
+const config = {
+  name: 'pg',
+  connector: process.env.CONNECTOR,
+  url: '',
+  user: process.env.DB_USER,
+  port: process.env.DB_PORT,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  localstorage: process.env.LOCALSTORAGE,
+};
 
 @lifeCycleObserver('datasource')
 export class AuchanDbDataSource extends juggler.DataSource

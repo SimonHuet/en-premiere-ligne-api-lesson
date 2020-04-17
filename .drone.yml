@@ -1,0 +1,46 @@
+kind: pipeline
+name: Deploy
+
+steps:
+  - name: build-docker
+    image: plugins/docker
+    settings:
+      repo: ${DRONE_REPO,,}
+      tags:
+        - ${DRONE_SOURCE_BRANCH/\//-}
+      cache_from:
+        - ${DRONE_REPO,,}:${DRONE_SOURCE_BRANCH/\//-}
+      username:
+        from_secret: DOCKER_USERNAME
+      password:
+        from_secret: DOCKER_PASSWORD
+    when:
+      branch:
+        - master
+      event:
+        exclude:
+          - tag
+
+  - name: deploy-caprover-main
+    image: node:10-slim
+    commands:
+      - npm i -g caprover
+      - caprover login -u $CAPROVER_URL -p $CAPROVER_PASSWORD -n $CAPROVER_NAME
+      - caprover deploy -a $APP_NAME -i $DOCKER_REGISTRY:${DRONE_SOURCE_BRANCH/\//-}
+      - caprover logout
+    environment:
+      CAPROVER_URL:
+        from_secret: CAPROVER_URL
+      CAPROVER_PASSWORD:
+        from_secret: CAPROVER_PASSWORD
+      CAPROVER_NAME:
+        from_secret: CAPROVER_NAME
+      DOCKER_REGISTRY:
+        from_secret: DOCKER_REGISTRY
+      APP_NAME:
+        from_secret: APP_NAME
+    when:
+      branch:
+        - master
+    depends_on:
+      - build-docker

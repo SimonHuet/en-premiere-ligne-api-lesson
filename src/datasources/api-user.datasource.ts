@@ -5,7 +5,40 @@ import {
   ValueOrPromise,
 } from '@loopback/core';
 import {juggler} from '@loopback/repository';
-import config from './api-user.datasource.config.json';
+
+const config = {
+  name: 'api_user',
+  connector: 'rest',
+  debug: 'true',
+  options: {
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+  },
+  operations: [
+    {
+      template: {
+        method: 'GET',
+        url:
+          process.env.API_USER_URL +
+          '/group-users?filter[include][][relation]=group&filter[where][userUUID]={userId}',
+      },
+      functions: {
+        getUserGroups: ['userId'],
+      },
+    },
+    {
+      template: {
+        method: 'GET',
+        url: process.env.API_USER_URL + '/users?filter={query}',
+      },
+      functions: {
+        getUsers: ['query'],
+      },
+    },
+  ],
+};
 
 @lifeCycleObserver('datasource')
 export class ApiUserDataSource extends juggler.DataSource
