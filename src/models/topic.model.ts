@@ -1,7 +1,7 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
 import {TopicUser} from './topic-user.model';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class Topic extends Entity {
   @property({
     type: 'string',
