@@ -55,7 +55,7 @@
     "@loopback/service-proxy": "^2.0.4",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "loopback-connector-postgresql": "^3.9.1",
+    "loopback-connector-postgresql": "^5.5.1",
     "loopback-connector-rest": "^3.6.0",
     "ramda": "^0.27.0",
     "tslib": "^1.10.0"
